@@ -1,5 +1,17 @@
-name: Sovrin
-nav: 
- - Introduction: 'index.md'
- - 'Release Notes': 'release-notes.md'
+# see https://www.mkdocs.org/user-guide/configuration/ for more config options
+site_name: Sovrin Documentation
+# site_url: https://docs.sovrin.org/sdk
+repo_url: http://github.com/michaeldboyd/sovrin/
+edit_uri: edit/docs-test/docs/
+nav:
+- Introduction: 'index.md' 
+- 'Release Notes': 'release-notes.md'
+docs_dir: 'docs/'
+use_directory_urls: false
+dev_addr: '127.0.0.1:8001'
+# site_dir: '/home/mdb/code/sov/docs-site/sdk/'
 
+markdown_extensions:
+  - toc:
+      permalink: "#"
+theme: readthedocs
