@@ -42,8 +42,8 @@ def generate_sidebar(conf, conf_api):
     def write(desc, link):
         if conf_api == 'sovrin':
             args = desc, link
-        elif not do_gen:
-            return
+        # elif not do_gen:
+        #     return
         else:
             args = desc, 'https://sovrin.readthedocs.io/en/%s/%s.html' % (version, link)
             
@@ -51,20 +51,24 @@ def generate_sidebar(conf, conf_api):
     
     def write_api(project, desc, link):
         if project != conf_api:
-            if do_gen:
-                args = desc, project, version, link
-                lines.append('    %s <https://sovrin.readthedocs.io/projects/%s/en/%s/%s.html>' % args)
+            # if do_gen:
+            args = desc, project, version, link
+            lines.append('    %s <https://sovrin.readthedocs.io/projects/%s/en/%s/%s.html>' % args)
         else:
-            lines.append('    %s <%s>' % desc, link)
+            lines.append('    %s <%s>' % (desc, link))
     
     #
     # Specify the sidebar contents here
     #
     
-    toctree('Sovrin', 2)
-    # write_api('sovrin',  'index')
+    toctree('Sovrin', 1)
+    write_api('sovrin', 'Release Notes', 'release-notes.md')
+    write_api('sovrin', 'Build Instructions', 'build-scripts/ubuntu-1604/README.md')
+
+
+    toctree('Repositories', 1)
     write_api('node', 'Indy Node', 'index')
-    write_api('sdk', 'Indy SDK', 'index')
+    write_api('sdk', 'Indy SDK', 'indy-sdk')
     endl()
 
 

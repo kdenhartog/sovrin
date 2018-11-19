@@ -3,5 +3,13 @@
 
 .. toctree::
     :caption: Sovrin
-    :maxdepth: 2
+    :maxdepth: 1
 
+    Release Notes <release-notes.md>
+    Build Instructions <build-scripts/ubuntu-1604/README.md>
+.. toctree::
+    :caption: Repositories
+    :maxdepth: 1
+
+    Indy Node <https://sovrin.readthedocs.io/projects/node/en/latest/index.html>
+    Indy SDK <https://sovrin.readthedocs.io/projects/sdk/en/latest/indy-sdk.html>

@@ -1,11 +1,6 @@
 # Sovrin Release Notes
 
-
-
-
-
 ![image alt text](banner.png)
-
 
 * [1.1.30](#1130)
 
@@ -30,10 +25,6 @@
 * [1.1.6](#116)
 
 * [1.0](#10)
-
-
-
-
 
 
 #### Disclosure
