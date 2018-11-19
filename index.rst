@@ -38,15 +38,7 @@ Bugs, stories, and backlog for Indy are managed in
 
 Use project name `INDY` (or `IS` for the Indy SDK).
 
-.. toctree::
-   :caption: Sovrin
-   :maxdepth: 2
-   
-   Introduction <README.md>
-   Release Notes <release-notes.md>
-   Build Scripts <build-scripts/ubuntu-1604/README.md>
-
-
+.. include:: _sidebar.rst.inc
 
 
 

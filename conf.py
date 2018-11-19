@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # -*- coding: utf-8 -*-
 #
 # Configuration file for the Sphinx documentation builder.
@@ -17,8 +19,20 @@ import sphinx_rtd_theme
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('.'))
 
+from os.path import abspath, join, dirname
+
+sys.path.insert(0, abspath(join(dirname(__file__))))
+
+# -- RTD configuration ------------------------------------------------
+
+# on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+
+# This is used for linking and such so we link to the thing we're building
+rtd_version = os.environ.get('READTHEDOCS_VERSION', 'latest')
+if rtd_version not in ['stable', 'latest']:
+    rtd_version = 'latest'
 
 # -- Project information -----------------------------------------------------
 
@@ -68,9 +82,9 @@ master_doc = 'index'
 rtd_version = 'latest'
 
 intersphinx_mapping = {
-    'sovrin': ('http://pyfrc.readthedocs.io/en/%s/' % rtd_version, None),
-    'indy-sdk': ('http://pynetworktables.readthedocs.io/en/%s/' % rtd_version, None),
-    'indy-node': ('http://robotpy-wpilib.readthedocs.io/en/%s/' % rtd_version, None),
+    'sovrin': ('http://sovrin.readthedocs.io/en/%s/' % rtd_version, None),
+    'indy-sdk': ('http://indy-sdk.readthedocs.io/en/%s/' % rtd_version, None),
+    'indy-node': ('http://indy-node.readthedocs.io/en/%s/' % rtd_version, None),
 }
 
 
@@ -197,3 +211,47 @@ epub_exclude_files = ['search.html']
 # -- Extension configuration -------------------------------------------------
 
 # -- Options for intersphinx extension ---------------------------------------
+
+# -- Custom Document processing ----------------------------------------------
+
+import gensidebar
+gensidebar.generate_sidebar(globals(), 'sovrin')
+
+
+import sphinx.addnodes
+import docutils.nodes
+
+def process_child(node):
+    '''This function changes class references to not have the
+       intermediate module name by hacking at the doctree'''
+    
+    # Edit descriptions to be nicer
+    if isinstance(node, sphinx.addnodes.desc_addname):
+        if len(node.children) == 1:
+            child = node.children[0]
+            text = child.astext()
+            if text.startswith('wpilib.') and text.endswith('.'):
+                # remove the last element
+                text = '.'.join(text.split('.')[:-2]) + '.'
+                node.children[0] = docutils.nodes.Text(text)
+                
+    # Edit literals to be nicer
+    elif isinstance(node, docutils.nodes.literal):
+        child = node.children[0]
+        text = child.astext()
+        
+        # Remove the imported module name
+        if text.startswith('wpilib.'):
+            stext = text.split('.')
+            text = '.'.join(stext[:-2] + [stext[-1]])
+            node.children[0] = docutils.nodes.Text(text)
+    
+    for child in node.children:
+        process_child(child)
+
+def doctree_read(app, doctree):
+    for child in doctree.children:
+        process_child(child)
+
+def setup(app):
+    app.connect('doctree-read', doctree_read)
