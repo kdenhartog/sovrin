@@ -224,26 +224,13 @@ def process_child(node):
     '''This function changes class references to not have the
        intermediate module name by hacking at the doctree'''
     
-    # Edit descriptions to be nicer
     if isinstance(node, sphinx.addnodes.desc_addname):
         if len(node.children) == 1:
             child = node.children[0]
             text = child.astext()
-            if text.startswith('wpilib.') and text.endswith('.'):
-                # remove the last element
-                text = '.'.join(text.split('.')[:-2]) + '.'
-                node.children[0] = docutils.nodes.Text(text)
-                
-    # Edit literals to be nicer
     elif isinstance(node, docutils.nodes.literal):
         child = node.children[0]
         text = child.astext()
-        
-        # Remove the imported module name
-        if text.startswith('wpilib.'):
-            stext = text.split('.')
-            text = '.'.join(stext[:-2] + [stext[-1]])
-            node.children[0] = docutils.nodes.Text(text)
     
     for child in node.children:
         process_child(child)
