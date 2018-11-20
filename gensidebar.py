@@ -61,16 +61,13 @@ def generate_sidebar(conf, conf_api):
     # Specify the sidebar contents here
     #
     
-    toctree('Sovrin', 1)
-    write_api('sovrin', 'Release Notes', 'release-notes.md')
-    write_api('sovrin', 'Build Instructions', 'build-scripts/ubuntu-1604/README.md')
+    toctree('Sovrin', 2)
+    write('Release Notes', 'release-notes')
+    write('Build Instructions', 'build-scripts/ubuntu-1604/README')
 
-
-    toctree('Repositories', 1)
-    write_api('node', 'Indy Node', 'index')
+    toctree('Repositories', 2)
+    write_api('node', 'Indy Node', 'indy-node')
     write_api('sdk', 'Indy SDK', 'indy-sdk')
     endl()
-
-
     
     write_if_changed('_sidebar.rst.inc', '\n'.join(lines))
