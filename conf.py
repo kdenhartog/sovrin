@@ -190,7 +190,7 @@ epub_exclude_files = ['search.html']
 # ------------ Remote Documentation Builder Config -----------
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
-if(True):
+if(on_rtd):
     rtd_version = os.environ.get('READTHEDOCS_VERSION', 'latest')
     if rtd_version not in ['stable', 'latest']:
         rtd_version = 'latest'
