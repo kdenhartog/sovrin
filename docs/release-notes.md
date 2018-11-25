@@ -1,6 +1,6 @@
 # Sovrin Release Notes
 
-![image alt text](banner.png)
+![image alt text](_static/banner.png)
 
 * [1.1.30](#1130)
 

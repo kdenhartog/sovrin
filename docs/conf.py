@@ -188,15 +188,23 @@ epub_exclude_files = ['search.html']
 
 
 # ------------ Remote Documentation Builder Config -----------
+
+# Checks the environment to see if we are build remotely on readthedocs.org
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
+
+# If we are building remotely, we want to include all the repositories from Sovrin and Indy ecosystem
+# into our build for our readthedocs server. This grabs the remote_config file and generates the 
+# custom sidebar.
 if(on_rtd):
     rtd_version = os.environ.get('READTHEDOCS_VERSION', 'latest')
     if rtd_version not in ['stable', 'latest']:
         rtd_version = 'latest'
 
-# get sidebar file
+    
     try:
+        # get sidebar file from github
+        # TODO - this feels too hacky, how else can we maintain a single remote_config file for all repos? 
         os.system("git clone https://github.com/michaeldboyd/sovrin-docs-conf.git remote_conf")
         os.system("mv remote_conf/remote_conf.py .")
         os.system("rm toc.rst")

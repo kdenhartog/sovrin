@@ -1,4 +1,4 @@
-![logo](banner.png)
+![logo](docs/_static/banner.png)
 # The Sovrin Foundation
 
 Sovrin is a global utility for self-sovereign identity--that is, an identity that nobody controls
